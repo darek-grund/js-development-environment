@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lt": "lt --port 3000 --subdomain dev-env",
-    "server": "node buildScripts/srcServer.js",
-    "server-external": "npm run server | npm run lt"
+    "prestart": "echo 'pre start script runs'",
+    "start": "npm-run-all --parallel security-check open:src",
+    "open:src": "node buildScripts/srcServer.js",
+    "security-check": "nsp check",
+    "localtunnel": "lt --port 3000 --subdomain dev-env",
+    "share": "npm-run-all --parallel open:src localtunnel"
   },
   "repository": {
     "type": "git",
